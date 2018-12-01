@@ -70,7 +70,7 @@ label start:
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either 'bg room.png' or 'bg room.jpg') to the
     # images directory to show it.
-    scene bg room
+    scene bg setup
 
     # Just setting up the player
     python:
@@ -94,36 +94,17 @@ label start:
         'Non-Binary':
             $ soPronoun = PRONOUNS[2]
         'Male':
-            $ mePronoun = PRONOUNS[0]
+            $ soPronoun = PRONOUNS[0]
         'Female':
             $ soPronoun = PRONOUNS[1]
 
     # Setup the rest of the variables
+    $ soName = getName(soPronoun)
     $ meNoun = getPronoun(mePronoun, 'Possessive')
     $ soNoun = getPronoun(soPronoun, 'Possessive')
-    $ soName = getName(soPronoun)
 
     # Actually play the item collecting minigame here
     "Testing: my prounoun is [meNoun], [soName] is [soNoun]"
-    me "Oh, egads, I'm late for my date!"
-    "I was getting excited by the date I hooked up online today, that I couldn't sleep last night."
-    "This is already starting to become a nightmare."
-    me "Quick!  What should I bring?"
-    "Placeholder Text: I brought bandaids, hat, and an...eyepatch?"
 
-    # Switch to scene 1
-    scene bg cafe
-
-    # This shows a character sprite. A placeholder is used, but you can
-    # replace it by adding a file named 'so happy.png' to the images
-    # directory.
-    #show so happy
-
-    # These display lines of dialogue.
-    me "Sorry I'm late!"
-    so "You kept me waiting."
-    me "Huff, puff...well anything good on the menu?"
-    so "Once you add a story, pictures, and music, you can release it to the world!"
-
-    # This ends the game.
-    return
+    # Go to the room minigame
+    jump room

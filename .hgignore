@@ -3,4 +3,7 @@ syntax: glob
 log.txt
 *.rpymc
 game/cache/
-game\saves\persistent
+game/saves/
+errors.txt
+traceback.txt
+navigation.json

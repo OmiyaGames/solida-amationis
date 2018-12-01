@@ -1,0 +1,6 @@
+syntax: glob
+*.rpyc
+log.txt
+*.rpymc
+game/cache/
+game\saves\persistent

@@ -62,6 +62,8 @@ define soName = 'Significant Other'
 define soPronoun = PRONOUNS[2]
 
 define probabilityOfSuccess = 1.0
+define scenario = 'room'
+define conversationPhase = 0
 
 # The game starts here.
 

@@ -6,6 +6,8 @@ label room:
     # add a file (named either 'bg room.png' or 'bg room.jpg') to the
     # images directory to show it.
     scene bg room
+    $ scenario = 'room'
+    $ conversationPhase = 0
 
     # Setup the rest of the variables
     $ meNoun = getPronoun(mePronoun, 'Possessive')

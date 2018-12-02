@@ -6,9 +6,25 @@ label streets:
     $ scenario = 'streets'
     $ conversationPhase = 0
 
-    # These display lines of dialogue.
-    me "Huff, puff...well anything good on the menu?"
+    # TODO: These display lines of dialogue.
+    me "Placeholder text"
     so "Once you add a story, pictures, and music, you can release it to the world!"
+
+    # Have a conversation
+    $ rand = (renpy.random.randint(0, 1) == 1)
+    call conversation(rand)
+    call conversation(not rand)
+
+    # TODO: indicate what happens after the conversation
+    "Placeholder text: then [soName] loses eyebrows, ear lobe, or tooth. But that's OK, cause we hid it with a hat!"
+    $ probabilityOfSuccess -= 0.1
+
+    # Move to the streets.
+    if renpy.random.random() < probabilityOfSuccess:
+        "Placeholder text: also, we made it to the park!"
+        jump park
+    else:
+        jump gameover
 
     # This ends the game.
     return

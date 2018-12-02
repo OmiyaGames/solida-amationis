@@ -61,22 +61,26 @@ define so = Character('[soName]')
 define soName = 'Significant Other'
 define soPronoun = PRONOUNS[2]
 
+# TODO: Add some more conversation topics when I have the time
+define conversationTopics = ['uncle sam', 'weather', 'college', 'hobby', 'flu', 'holidays']
+define conversationPhase = 0
 define probabilityOfSuccess = 1.0
 define scenario = 'room'
-define conversationPhase = 0
 
 # The game starts here.
-
 label start:
-
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either 'bg room.png' or 'bg room.jpg') to the
     # images directory to show it.
     scene bg setup
 
-    # Just setting up the player
     python:
-        meName = renpy.input('Please enter your name:', '', length=20)
+        # Reset all the variables
+        conversationTopics = ['uncle sam', 'weather', 'college', 'hobby', 'flu', 'holidays']
+        probabilityOfSuccess = 1.0
+
+        # Just setting up the player
+        meName = renpy.input('Please enter your name:', meName, length=20)
         meName = meName.strip()
 
         if not meName:

@@ -6,7 +6,7 @@ label cafe:
     scene bg cafe
     $ scenario = 'cafe'
     $ conversationPhase = 0
-    
+
     # This shows a character sprite. A placeholder is used, but you can
     # replace it by adding a file named 'so happy.png' to the images
     # directory.
@@ -15,7 +15,7 @@ label cafe:
     # These display lines of dialogue.
     me "Sorry I'm late!"
 
-    $ rand = renpy.random.randint(0, 2)
+    $ rand = renpy.random.randint(0, 1)
     if rand == 1:
         so "You kept me waiting."
         "Uh, oh, not good."
@@ -41,5 +41,14 @@ label cafe:
 
     "We placed the order."
 
-    # This ends the game.
-    return
+    # Have a conversation
+    $ rand = (renpy.random.randint(0, 1) == 1)
+    call conversation(rand)
+    call conversation(not rand)
+
+    # TODO: indicate what happens after the conversation
+    "Placeholder text: then [soName] loses a fingernail. But that's OK, cause I have bandaids!"
+    "Placeholder text: also, food was good, yadda, yadda, yadda. Off to the park!"
+
+    # Move to the streets.
+    jump streets

@@ -1,14 +1,15 @@
 # The game starts here.
-label gameOver:
+label gameover:
 
     # Switch to scene 1
     scene bg gameover
     $ scenario = 'gameover'
     $ conversationPhase = 0
 
-    # These display lines of dialogue.
-    me "Huff, puff...well anything good on the menu?"
-    so "Once you add a story, pictures, and music, you can release it to the world!"
+    # TODO: These display lines of dialogue.
+    so "Placeholder text"
+    me "No!"
+    me "No, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no-"
 
     # This ends the game.
     return

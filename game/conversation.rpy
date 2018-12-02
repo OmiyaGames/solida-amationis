@@ -1,13 +1,26 @@
 # Enacts a random conversation
 label conversation(soStartsConversation = true):
-    # Choose a random topic
-    python:
-        topic = 'random'
-        if len(conversationTopics) > 0:
-            topic = renpy.random.choice(conversationTopics);
-            conversationTopics.remove(topic)
 
-    # Have a conversation about that topic
+    python:
+        # Setup variables
+        topic = 'random'
+
+        # Check who starts first
+        if soStartsConversation:
+            # Choose a random topic
+            topic = renpy.random.choice(conversationTopics);
+        else:
+            # Shuffle the topics
+            renpy.random.shuffle(conversationTopics)
+            choices = []
+            for newChoice in conversationTopics[0:3]:
+                choices.append((newChoice, newChoice))
+            me("Hmm, what should we talk about?")
+            topic = renpy.display_menu(choices)
+            me(topic)
+        conversationTopics.remove(topic)
+
+    # TODO: have the conversation
     if soStartsConversation:
         so "Lets talk about [topic]"
     else:

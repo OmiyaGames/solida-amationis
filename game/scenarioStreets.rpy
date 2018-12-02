@@ -13,7 +13,6 @@ label streets:
     # Have a conversation
     $ rand = (renpy.random.randint(0, 1) == 1)
     call conversation(rand)
-    call conversation(not rand)
 
     # TODO: indicate what happens after the conversation
     "Placeholder text: then [soName] loses eyebrows, ear lobe, or tooth. But that's OK, cause we hid it with a hat!"

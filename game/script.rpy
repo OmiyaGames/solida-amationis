@@ -62,9 +62,10 @@ define soName = 'Significant Other'
 define soPronoun = PRONOUNS[2]
 
 # TODO: Add some more conversation topics when I have the time
-define conversationTopics = ['uncle sam', 'weather', 'college', 'hobby', 'flu', 'holidays']
-define conversationPhase = 0
+define ALL_TOPICS = ['Uncle Sam', 'Weather', 'Hobbies', 'Flu Season', 'Holidays', 'Video Games']
+define conversationTopics = ALL_TOPICS
 define probabilityOfSuccess = 1.0
+define conversationPhase = 0
 define scenario = 'room'
 
 # The game starts here.
@@ -76,7 +77,7 @@ label start:
 
     python:
         # Reset all the variables
-        conversationTopics = ['uncle sam', 'weather', 'college', 'hobby', 'flu', 'holidays']
+        conversationTopics = ALL_TOPICS
         probabilityOfSuccess = 1.0
 
         # Just setting up the player
@@ -106,11 +107,8 @@ label start:
 
     # Setup the rest of the variables
     $ soName = getName(soPronoun)
-    $ meNoun = getPronoun(mePronoun, 'Possessive')
-    $ soNoun = getPronoun(soPronoun, 'Possessive')
-
-    # Actually play the item collecting minigame here
-    "Testing: my prounoun is [meNoun], [soName] is [soNoun]"
+    #$ meNoun = getPronoun(mePronoun, 'Possessive')
+    #$ soNoun = getPronoun(soPronoun, 'Possessive')
 
     # Go to the room minigame
     jump room

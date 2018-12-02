@@ -14,7 +14,7 @@ label cafe:
 
     # These display lines of dialogue.
     so "*Cough*"
-    me "Sorry I'm late!"
+    me "[soName], sorry I'm late!"
 
     $ rand = renpy.random.randint(0, 1)
     if rand == 1:

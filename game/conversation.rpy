@@ -17,7 +17,6 @@ label conversation(soStartsConversation = true):
                 choices.append((newChoice, newChoice))
             me("Hmm, what should we talk about?")
             topic = renpy.display_menu(choices)
-            me(topic)
         conversationTopics.remove(topic)
 
     # TODO: have the conversation

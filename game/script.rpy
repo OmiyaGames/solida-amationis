@@ -19,7 +19,7 @@ python early:
     MALE_NAMES = (
         'Alan',
         'Ben',
-        'Chris',
+        'Callen',
         'Duncan',
         'Evan',
         'Fred',
@@ -58,7 +58,7 @@ python early:
         'Paula',
         'Rachel',
         'Sam',
-        'Tess',
+        'Temmie',
         'Vivi',
         'Zoe',
     )
@@ -77,7 +77,6 @@ python early:
         'Brook',
         'Casey',
         'Eli',
-        'Francis',
         'Jess',
         'Micah',
         'Raphael',

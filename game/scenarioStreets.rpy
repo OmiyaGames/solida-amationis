@@ -110,9 +110,12 @@ label streetsLostTooth:
     jump endStreets
 
 label endStreets:
-    "Placeholder text: then [soName] loses [bodyPart]. But that's OK, cause we hid it with a hat!"
+    $ soNoun = getPronoun(soGender, 'Possessive')
+    "We walked a little farther until [soName] lifted [soNoun] hand."
+    so "There's the park."
+    "[soName] pointed at a small amphitheater emerging into view."
+    me "Oh, neat."
     if renpy.random.random() < probabilityOfSuccess:
-        "Placeholder text: also, we made it to the park!"
         jump park
     else:
         jump gameover

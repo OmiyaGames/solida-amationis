@@ -16,7 +16,6 @@ label park:
 
     # TODO: indicate what happens after the conversation
     "Placeholder text: then [soName] loses eyeball, tongue, fingers. But I had a smartphone!"
-    $ probabilityOfSuccess -= 0.1
 
     # Move to the streets.
     if renpy.random.random() < probabilityOfSuccess:

@@ -40,7 +40,12 @@ label room:
     me "And finally?"
     $ chooseItem()
 
-    me "Right, now to the cafe!"
+    # Check if the player has the lucky penny
+    if 'Lucky Penny' in inventory:
+        # Increase probability of survival immediately
+        $ probabilityOfSuccess += 0.05
+
+    me "Right, I hope I make it to the cafe soon! Can't leave the date hanging."
 
     # Go to the cafe
     jump cafe

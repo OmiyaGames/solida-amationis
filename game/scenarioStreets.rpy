@@ -16,7 +16,6 @@ label streets:
 
     # TODO: indicate what happens after the conversation
     "Placeholder text: then [soName] loses eyebrows, ear lobe, or tooth. But that's OK, cause we hid it with a hat!"
-    $ probabilityOfSuccess -= 0.1
 
     # Move to the streets.
     if renpy.random.random() < probabilityOfSuccess:

@@ -88,7 +88,7 @@ python early:
     PRONOUNS = (
         'Male',
         'Female',
-        'NonBinary'
+        'Non-Binary'
     )
     CASE = (
         'Possessive',
@@ -116,7 +116,7 @@ python early:
             elif case == CASE[1]:
                 return 'they'
             elif case == CASE[2]:
-                return 'theirselves'
+                return 'themselves'
     def getName(gender):
         if gender == PRONOUNS[0]:
             return renpy.random.choice(list(MALE_NAMES))
@@ -129,15 +129,15 @@ python early:
 # name of the character.
 
 define me = Character('[meName]', color='#ff9933')
-define meName = 'Player'
-define mePronoun = PRONOUNS[2]
+define meName = ''
+define meGender = PRONOUNS[2]
 
 define so = Character('[soName]', color='#66ccff')
 define soName = 'Significant Other'
-define soPronoun = PRONOUNS[2]
+define soGender = PRONOUNS[2]
 
 # TODO: Add some more conversation topics when I have the time
-define DEFAULT_PROBABILITY_OF_SUCCESS = 0.95
+define DEFAULT_PROBABILITY_OF_SUCCESS = 0.9
 define conversationTopics = list(ALL_TOPICS)
 define probabilityOfSuccess = DEFAULT_PROBABILITY_OF_SUCCESS
 define inventory = []
@@ -157,7 +157,7 @@ label start:
         probabilityOfSuccess = DEFAULT_PROBABILITY_OF_SUCCESS
 
         # Just setting up the player
-        meName = renpy.input('Please enter your name:', meName, length=20)
+        meName = renpy.input('Please enter your first name:', meName, length=20)
         meName = meName.strip()
 
         if not meName:
@@ -166,25 +166,25 @@ label start:
         'Please select the gender you\'d like to play as:'
 
         'Non-Binary':
-            $ mePronoun = PRONOUNS[2]
+            $ meGender = PRONOUNS[2]
         'Male':
-            $ mePronoun = PRONOUNS[0]
+            $ meGender = PRONOUNS[0]
         'Female':
-            $ mePronoun = PRONOUNS[1]
+            $ meGender = PRONOUNS[1]
     menu:
         'Please select the gender you\'d like to date:'
 
         'Non-Binary':
-            $ soPronoun = PRONOUNS[2]
+            $ soGender = PRONOUNS[2]
         'Male':
-            $ soPronoun = PRONOUNS[0]
+            $ soGender = PRONOUNS[0]
         'Female':
-            $ soPronoun = PRONOUNS[1]
+            $ soGender = PRONOUNS[1]
 
     # Setup the rest of the variables
-    $ soName = getName(soPronoun)
-    $ meNoun = getPronoun(mePronoun, 'Possessive')
-    $ soNoun = getPronoun(soPronoun, 'Possessive')
+    $ soName = getName(soGender)
+    $ meNoun = getPronoun(meGender, 'Possessive')
+    $ soNoun = getPronoun(soGender, 'Possessive')
 
     # Go to the room minigame
     jump room

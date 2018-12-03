@@ -1,6 +1,21 @@
 ﻿# The script of the game goes in this file.
 
 python early:
+    ALL_TOPICS = (
+        'Weather',
+        'Hobbies',
+        'Flu Season',
+        'Holidays'
+    )
+    ALL_ITEMS = (
+        'Smartphone',
+        'Hat',
+        'Bandage',
+        'Band-Aid',
+        'Lucky Penny',
+        'Face-Mask',
+        'Handkerchief'
+    )
     MALE_NAMES = (
         'Alan',
         'Ben',
@@ -122,10 +137,10 @@ define soName = 'Significant Other'
 define soPronoun = PRONOUNS[2]
 
 # TODO: Add some more conversation topics when I have the time
-define ALL_TOPICS = ('Uncle Sam', 'Weather', 'Hobbies', 'Flu Season', 'Holidays', 'Video Games')
 define DEFAULT_PROBABILITY_OF_SUCCESS = 0.95
 define conversationTopics = list(ALL_TOPICS)
 define probabilityOfSuccess = DEFAULT_PROBABILITY_OF_SUCCESS
+define inventory = []
 define conversationPhase = 0
 define scenario = 'room'
 
@@ -168,8 +183,8 @@ label start:
 
     # Setup the rest of the variables
     $ soName = getName(soPronoun)
-    #$ meNoun = getPronoun(mePronoun, 'Possessive')
-    #$ soNoun = getPronoun(soPronoun, 'Possessive')
+    $ meNoun = getPronoun(mePronoun, 'Possessive')
+    $ soNoun = getPronoun(soPronoun, 'Possessive')
 
     # Go to the room minigame
     jump room

@@ -7,17 +7,14 @@ label cafe:
     $ scenario = 'cafe'
     $ conversationPhase = 0
 
-    # This shows a character sprite. A placeholder is used, but you can
-    # replace it by adding a file named 'so happy.png' to the images
-    # directory.
-    #show so happy
+    "The aroma of espresso permeates the café. You can hear the sizzle of a panini press and the chatter of a handful of customers."
+    "A few romantic couples are scattered among the college students on their laptops."
 
     # These display lines of dialogue.
     so "*Cough*"
     me "[soName], sorry I'm late!"
 
-    $ rand = renpy.random.randint(0, 1)
-    if rand == 1:
+    if renpy.random.randint(0, 1) == 1:
         so "You kept me waiting."
         "Uh, oh, not good."
     else:
@@ -48,11 +45,11 @@ label cafe:
         "The Harvest Moon":
             me "Bageled sandwich with turkey and apple. Something different."
 
-    $ rand = renpy.random.randint(0, 1)
-    if rand == 1:
-        "As the waiter came along, we placed the order."
-    else:
-        "As the waitress came along, we placed the order."
+    python:
+        cafeStaff = "waitress"
+        if renpy.random.randint(0, 1) == 1:
+            cafeStaff = "waiter"
+    "As the [cafeStaff] came along, we placed the order."
 
     # Have a conversation
     $ rand = (renpy.random.randint(0, 1) == 1)

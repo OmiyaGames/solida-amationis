@@ -8,8 +8,10 @@ label gameover:
 
     # TODO: These display lines of dialogue.
     so "Placeholder text"
+    "And just like that, I watched in horror as the date fall apart into pieces."
     me "No!"
     me "No, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no-"
 
     # This ends the game.
-    return
+    "Love is over..."
+    jump start

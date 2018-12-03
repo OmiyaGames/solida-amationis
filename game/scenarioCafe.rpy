@@ -1,4 +1,6 @@
 # The game starts here.
+define cafeStaff = 'Waitress'
+define staff = Character('[cafeStaff]')
 
 label cafe:
 
@@ -56,8 +58,44 @@ label cafe:
     call conversation(rand)
 
     # TODO: indicate what happens after the conversation
-    "Placeholder text: then [soName] loses a fingernail. But that's OK, cause I have bandaids!"
-    "Placeholder text: also, food was good, yadda, yadda, yadda. Off to the park!"
+    "As we finish the conversation, the [cafeStaff] comes in and delivers our meals."
+    staff "Bon Appétit!"
+
+    "We chew down the food and commented on the delicious flavor of each meal. As we're finishing up the meal, suddenly, [soName] comments."
+    so "Urk, I bit on something hard!"
+    me "That doesn't sound good."
+    so "Wait..."
+    "[soName] spits out the hard object in question. It looks like...an entire fingernail?"
+    me "Ugh, gross, I'm calling the [cafeStaff] about this."
+
+    $ soNoun = getPronoun(soGender, 'Possessive')
+    so "Yeah, plea- OH, WHAT!?"
+    "[soName] exclaimed while looking at [soNoun] hand. The fingernail on [soNoun] has come clean off."
+
+    menu:
+        me "Yikes, what should I do?"
+
+        "Apply a band-aid to the finger." if 'Band-Aid' in inventory:
+            $ inventory.remove('Band-Aid')
+
+        "Hand a handkerchief." if 'Handkerchief' in inventory:
+            $ inventory.remove('Handkerchief')
+
+        "Wrap the bandage around the finger." if 'Bandage' in inventory:
+            # Doesn't really make much sense to remove bandage from the inventory
+            # on such a small damage
+            #$ inventory.remove('Bandage')
+            pass
+
+        "Ask [cafeStaff] for help.":
+            $ probabilityOfSuccess -= 0.2
+
+    me "Yikes, well, that was a frightning experience."
+    so "Yeah, no kidding."
+    "As we finished that conversation, the [cafeStaff] handed our check."
+    "After we made the payment, we discussed where to go next."
+    so "How about the park at the riverside? It's within walking distance."
+    me "Yeah, I like that idea. A nice place to cool down and relax."
 
     # Move to the streets.
     jump streets

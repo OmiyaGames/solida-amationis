@@ -70,7 +70,7 @@ label cafe:
     me "Ugh, gross, I'm calling the [cafeStaff] about this."
 
     $ soNoun = getPronoun(soGender, 'Possessive')
-    so "Yeah, plea- OH, WHAT!?"
+    so "Yeah, plea- Wait, HOW!?"
     "[soName] exclaimed while looking at [soNoun] hand. The fingernail on [soNoun] has come clean off."
 
     menu:

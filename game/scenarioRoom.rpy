@@ -8,7 +8,12 @@ label room:
         # Setup variables
         leftOverItems = list(ALL_ITEMS)
 
-        def chooseItem():
+        def displayItems(choices):
+            item = renpy.display_menu(choices)
+            inventory.append(item)
+            leftOverItems.remove(item)
+
+        def randomItem():
             # Shuffle the items
             renpy.random.shuffle(leftOverItems)
 
@@ -16,9 +21,15 @@ label room:
             choices = []
             for newChoice in leftOverItems[0:3]:
                 choices.append((newChoice, newChoice))
-            item = renpy.display_menu(choices)
-            inventory.append(item)
-            leftOverItems.remove(item)
+            displayItems(choices)
+
+        def chooseNextItem():
+            # Display menu
+            choices = []
+            for newChoice in leftOverItems[2:5]:
+                choices.append((newChoice, newChoice))
+            displayItems(choices)
+
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either 'bg room.png' or 'bg room.jpg') to the
     # images directory to show it.
@@ -32,13 +43,13 @@ label room:
     "This is already starting to become a nightmare!"
 
     me "Quick! What should I bring?"
-    $ chooseItem()
+    $ randomItem()
 
     me "And what else?"
-    $ chooseItem()
+    $ chooseNextItem()
 
     me "And finally?"
-    $ chooseItem()
+    $ randomItem()
 
     # Check if the player has the lucky penny
     if 'Lucky Penny' in inventory:

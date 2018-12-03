@@ -2,11 +2,9 @@
 
 python early:
     ALL_TOPICS = (
-        # Removing weather, since it's boring
-        #'Weather',
-        'Hobbies',
-        'Flu Season',
-        'Holidays'
+        'Profession',
+        'Interests',
+        'Flu Season'
     )
     ALL_ITEMS = (
         'Smartphone',

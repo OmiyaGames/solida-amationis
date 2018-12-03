@@ -17,7 +17,7 @@ label conversation(soStartsConversation = true):
         # Check who starts first
         if soStartsConversation:
             # Choose a random topic
-            topic = renpy.random.choice(conversationTopics);
+            topic = renpy.random.choice(conversationTopics)
         else:
             # Shuffle the topics
             renpy.random.shuffle(conversationTopics)
@@ -30,27 +30,26 @@ label conversation(soStartsConversation = true):
 
     # Check which topic to speak about, and who starts the conversation
     # Then call the subroutine (listed below) to talk about that topic
-    if topic == 'Holidays':
-        if soStartsConversation:
-            call convoSoHolidays()
-        else:
-            call convoMeHolidays()
+    define p1 = me
+    define p2 = so
+    if soStartsConversation:
+        $ p1 = so
+        $ p2 = me
+    if topic == 'Profession':
+        call convoProfession(p1, p2)
+    elif topic == 'Interests':
+        call convoInterests(p1, p2)
     elif topic == 'Hobbies':
         if soStartsConversation:
             call convoSoHobbies()
         else:
             call convoMeHobbies()
-    elif topic == 'Flu Season':
+    else:
+        # Default to talking about the flu season
         if soStartsConversation:
             call convoSoFluSeason()
         else:
             call convoMeFluSeason()
-    else:
-        # Default to talking about the weather
-        if soStartsConversation:
-            call convoSoWeather()
-        else:
-            call convoMeWeather()
 
     # All done
     return
@@ -59,16 +58,6 @@ label conversation(soStartsConversation = true):
 # This section has all the conversation topics, each starting with "label,"
 # followed by the name of the subroutine indicating who starts the topic,
 # and what the topic is about.  Check the comments for more details
-
-# Subroutine for conversing on the flu season, starting with the SO
-label convoSoFluSeason():
-    so "Ugh, I hate the flu season. I even got the snuffles."
-    me "I know, it sucks."
-    "And the narrator described talked about some mysterious disease people were dying right-and-left from."
-    "OoOo, forshadowing!"
-
-    # All done
-    return
 
 # Subroutine for conversing on the flu season, starting with the Player
 label convoMeFluSeason():
@@ -144,52 +133,188 @@ label convoSoWeather():
     # All done
     return
 
-# Subroutine for conversing on the weather, starting with the player
-label convoMeWeather():
-    me "Lets talk about the weather."
-    so "OK."
-    "And the narrator described about the cold, harsh winter."
+# Subroutine for conversing on profession
+label convoProfession(p1, p2):
+    python:
+        PROFESSION = (
+            ("Social Worker",
+                ("Social Work",
+                "Psychology")
+            ), ("Musician",
+                ("Music Composition",
+                "Music Performance",
+                "Music Education",
+                "Liberal Arts with Music concentration")
+            ), ("Game Designer",
+                ("Computer Science",
+                "Information Technology",
+                "Game Development",
+                "Art")
+            ), ("Teacher",
+                ("Primary Education",
+                "Secondary Education",
+                "Higher Education")
+            ), ("Writer",
+                ("Liberal Arts",
+                "English",
+                "Creative Writing",
+                "Journalism")
+            ), ("IT Professional",
+                ("Computer Science",
+                "Cybersecurity",
+                "Information Technology")
+            ), ("Architect",
+                ("Architectural",
+                "Art",
+                "Applied Mathematics")
+            )
+
+        # Setup variables
+        professions = list(PROFESSION)
+
+        # define functions
+        def randomProfession():
+            rand = renpy.random.choice(professions)
+            professions.remove(rand)
+            return (rand[0], renpy.random.choice(list(rand[1])))
+
+        def chooseProfession():
+            # Shuffle list
+            renpy.random.shuffle(professions)
+
+            # Get the first 3 choices
+            choices = []
+            for newChoice in professions[0:3]:
+                choices.append((newChoice[0], newChoice))
+
+            # Display the menu
+            rand = renpy.display_menu(choices)
+            professions.remove(rand)
+            return (rand[0], renpy.random.choice(list(rand[1])))
+
+    p1 "So what do you do?"
+
+    if p2 == so:
+        $ randProf, randMajor = randomProfession()
+    else:
+        $ randProf, randMajor = chooseProfession()
+    p2 "I'm a [randProf]."
+    p1 "That's so cool! What did you study?"
+    p2 "I majored in [randMajor]. What about you?"
+
+    if p1 == so:
+        $ randProf, randMajor = randomProfession()
+    else:
+        $ randProf, randMajor = chooseProfession()
+    p1 "I'm a [randProf]. I studied [randMajor]."
+    p2 "That sounds really interesting! Do you like it?"
+    #p1 "Yes, a lot. And you? Do you like your job?"
+    if p1 == so:
+        $ rand = renpy.random.randint(0, 3)
+        if rand == 0:
+            p1 "I absolutely love it, and I can't imagine doing anything else."
+        elif rand == 1:
+            p1 "I like it, but I'd like to switch careers at some point."
+        else:
+            $ randProf, randMajor = randomProfession()
+            p1 "No, I really don't like it at all, so I'm looking at making a career shift to [rand]."
+    else:
+        menu:
+            me "Well..."
+            "I love it!":
+                p1 "I absolutely love it, and I can't imagine doing anything else."
+            "I like it...":
+                p1 "I like it, but I'd like to switch careers at some point."
+            "I don't really like it.":
+                $ randProf, randMajor = randomProfession()
+                p1 "No, I really don't like it at all, so I'm looking at making a career shift to [rand]."
+    p2 "Ah, very good."
 
     # All done
     return
 
 
 
-# Subroutine for conversing on hobbies, starting with the SO
-label convoSoHobbies():
-    so "What hobbies do you have?"
-    me "Uh..."
-    "And the narrator described about video games."
+# Subroutine for conversing on interests
+label convoInterests(p1, p2):
+    python:
+        INTERESTS = (
+            "Reading",
+            "Writing",
+            "Yoga",
+            "Biking",
+            "Climbing",
+            "History",
+            "Gaming",
+            "Meditation",
+            "Pilates",
+            "Mathematics",
+            "Fashion",
+            "Photography",
+            "Physics",
+            "Programming",
+            "Woodworking",
+            "Crocheting",
+            "Knitting",
+            "Cooking",
+            "Baking",
+            "Costuming",
+            "Anime",
+            "Film",
+            "Art",
+        )
 
-    # All done
-    return
+        # Setup variables
+        interests = list(INTERESTS)
 
-# Subroutine for conversing on hobbies, starting with the Player
-label convoMeHobbies():
-    me "What hobbies do you have?"
-    so "Uh..."
-    "And the narrator described about video games."
+        # define functions
+        def randomInterest():
+            rand = renpy.random.choice(interests)
+            interests.remove(rand)
+            return rand
 
-    # All done
-    return
+        def chooseInterest():
+            # Shuffle list
+            renpy.random.shuffle(interests)
 
+            # Get the first 3 choices
+            choices = []
+            for newChoice in interests[0:3]:
+                choices.append((newChoice, newChoice))
 
+            # Display the menu
+            rand = renpy.display_menu(choices)
+            interests.remove(rand)
+            return rand
 
-# Subroutine for conversing on the holidays, starting with the SO
-label convoSoHolidays():
-    so "What are you going to do for the holidays?"
-    me "Uh..."
-    "And the narrator described about buying video games."
-    "And the power of copy and paste."
+    p1 "What do you do when you're not at work?"
 
-    # All done
-    return
+    if p2 == so:
+        $ randInter = randomInterest()
+    else:
+        $ randInter = chooseInterest()
+    p2 "I really enjoy [randInter].  I read a lot about it and try to attend lectures and films about it when I can."
+    p2 "How about you?"
 
-label convoMeHolidays():
-    me "What are you going to do for the holidays?"
-    so "Uh..."
-    "And the narrator described about buying video games."
-    "And the power of copy and paste."
+    if p1 == so:
+        $ randInter = randomInterest()
+    else:
+        $ randInter = chooseInterest()
+    p1 "I really like [randInter], so I do it a lot."
+    p2 "Nice!"
+
+    if p1 == so:
+        $ randInter = randomInterest()
+    else:
+        $ randInter = chooseInterest()
+    p1 "Do you like [randInter]?"
+
+    if p2 == so:
+        $ randInter = renpy.random.choice(interests)
+    else:
+        $ randInter = chooseInterest()
+    p2 "Yeah, definitely."
+    p2 "Not so much, but it's cool that you're into it!"
 
     # All done
     return

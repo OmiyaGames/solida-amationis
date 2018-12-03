@@ -2,7 +2,8 @@
 
 python early:
     ALL_TOPICS = (
-        'Weather',
+        # Removing weather, since it's boring
+        #'Weather',
         'Hobbies',
         'Flu Season',
         'Holidays'

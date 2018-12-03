@@ -10,12 +10,11 @@ python early:
     )
     ALL_ITEMS = (
         'Smartphone',
-        'Hat',
         'Bandage',
-        'Band-Aid',
         'Lucky Penny',
-        'Face-Mask',
-        'Handkerchief'
+        'Handkerchief',
+        'Hat',
+        'Band-Aid'
     )
     MALE_NAMES = (
         'Alan',

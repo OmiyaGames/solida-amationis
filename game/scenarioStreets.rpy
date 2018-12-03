@@ -7,12 +7,10 @@ label streets:
     $ conversationPhase = 0
 
     # TODO: These display lines of dialogue.
-    "We walked out of the cafe. Perhaps due to our full stomach, the outside didn't feel as chilly as before."
+    "You walk against the raging wind.  Every few steps, you look at the ground to watch for black ice.  Frost creeps over the discolored concrete.  You can't wait to get to the park."
     me "Lead me the way."
     so "Gladly. It's just straight this way."
-    "The streets was a bit empty, probably due to it being the weekends."
-    "We passed some wooden Uncle Sams statues."
-    "While walking, we both conversed to pass some time."
+    "We passed some local stores, many of them empty.  To pass some time, we conversed."
 
     # Have a conversation
     $ rand = (renpy.random.randint(0, 1) == 1)
@@ -29,7 +27,7 @@ label streets:
     "As I rushed to [soNoun] side, I saw [soName] holding holding something."
 
     # Jump to a random body loss situation
-    $ rand = (renpy.random.randint(0, 3) == 1)
+    $ rand = renpy.random.randint(0, 3)
     if rand == 0:
         jump streetsLostEyebrow
     elif rand == 1:

@@ -9,8 +9,9 @@ label cafe:
     $ scenario = 'cafe'
     $ conversationPhase = 0
 
-    "The aroma of espresso permeates the café. You can hear the sizzle of a panini press and the chatter of a handful of customers."
+    "The aroma of espresso permeates the café.  You can hear the sizzle of a panini press and the chatter of a handful of customers."
     "A few romantic couples are scattered among the college students on their laptops."
+    "You arrive a bit late.  So much for making a good first impression."
 
     # These display lines of dialogue.
     so "*Cough*"

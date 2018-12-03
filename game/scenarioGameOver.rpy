@@ -14,4 +14,5 @@ label gameover:
 
     # This ends the game.
     "Love is over..."
+    me "If only I can start over!"
     jump start

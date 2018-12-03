@@ -49,12 +49,28 @@ label hospital:
     "The doctor handed each of us a copy."
     doc "Don't forget to read it!"
     "I get up, brochure in hand."
-    me "Well, I better get going.  Hey, [soName], call me if you need any help."
+    me "Well, I better get going before it gets too late.  Hey, [soName], call me if you need any help."
     so "Will do."
     "I flash [soName] a smile before I leave."
 
-    # Switch to scene 1
-    scene bg streets
+    # Switch to streets, normal
+    scene bg streets A
+    "As I walk back home, I take a brief look at brochure.  The street lights are only bright enough to make a few sentences legible."
+    me "\"Do you have Solida amationis?  Symptoms include:\""
+    "Looks like any regular medical brochures."
+    me "\"Coughs, chills, sneezes\" blah, blah."
+    "My vision blurs for bit, mostly out of boredom.  But a line catches my eye."
+    me "\"Patients also site experiencing physical paralysis when asked a question or when forced to make a decisio-\""
+    me "{b}ACH-{/b}"
+    "I cover my mouth.  As the sneeze comes in, I feel something slimey and round hit the palm of my hand."
+    "I{w=0.5} open{w=0.5} my{w=0.5} hand."
+
+    # Switch to streets, cut in half
+    scene bg streets B
+    me "No..."
+    "It's an eyeball."
+    "{i}My eyeball.{/i}"
+    me "No, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no-"
 
     # This ends the game.
     return

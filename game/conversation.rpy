@@ -33,6 +33,7 @@ label conversation(soStartsConversation = true):
     define p1 = me
     define p2 = so
     if soStartsConversation:
+        # Swap figures
         $ p1 = so
         $ p2 = me
     if topic == 'Profession':
@@ -40,16 +41,10 @@ label conversation(soStartsConversation = true):
     elif topic == 'Interests':
         call convoInterests(p1, p2)
     elif topic == 'Hobbies':
-        if soStartsConversation:
-            call convoSoHobbies()
-        else:
-            call convoMeHobbies()
+        call convoHobbies(p1, p2)
     else:
         # Default to talking about the flu season
-        if soStartsConversation:
-            call convoSoFluSeason()
-        else:
-            call convoMeFluSeason()
+        call convoSoFluSeason(p1, p2)
 
     # All done
     return
@@ -60,9 +55,9 @@ label conversation(soStartsConversation = true):
 # and what the topic is about.  Check the comments for more details
 
 # Subroutine for conversing on the flu season, starting with the Player
-label convoMeFluSeason():
-    me "I've been seeing a lot coughs from people around me, lately."
-    so "Well, of course, it's the dreaded flu season."
+label convoFluSeason(p1, p2):
+    p1 "I've been seeing a lot coughs from people around me, lately."
+    p2 "Well, of course, it's the dreaded flu season."
     "And the narrator described talked about some mysterious disease people were dying right-and-left from."
     "OoOo, forshadowing!"
 
@@ -70,68 +65,6 @@ label convoMeFluSeason():
     return
 
 
-
-# Subroutine for conversing on the weather, starting with the SO
-label convoSoWeather():
-    # This line below has the SO speaking
-    so "Lets talk about the weather."
-    # This line below has the Player speaking
-    me "OK."
-    # This line below has the Narrator...narrating
-    "And the narrator described about the cold, harsh winter."
-
-    # For creating branching narrative, start with "menu:" like the example below
-    # Any lines below a colon must be indented.
-    menu:
-        # This question below will be printed on the bottom of the screen
-        so "So determine how the weather affects me."
-
-        # Depict by simple having a string, followed by a colon
-        "Absolutely nothing":
-            # If no conversations should occur when making a choice, use "pass" like the line below
-            pass
-        "Decrease the probability of SO's survival":
-            # And this would be a prime opportunity to have a conversation
-            so "Wait, seriously!? What's wrong with you!?"
-            me "Well, Taro needed something to demonstrate dropping numbers, so this choice was added in."
-            me "And, well, I was curious."
-            so "You're both jerks!!"
-
-            # For any bad choices, you can add a penalty like the line below:
-            $ probabilityOfSuccess -= 0.1
-            # Above line decreases the probability that the SO survives by 10 percent.
-            # I would recommend keeping the probability of success above 30 percent or so.
-
-    # If a custom text needs to be inserted in a string, use [], with a variable name in-between
-    # To insert single-line python code, use $
-    # (Note: the code at the top of this file also uses "python:" to demonstrate running multi-line python code)
-    # The lines below creates a new variable named, "aCustomString" with a custom string value.
-    # Then this line gets inserted into the narrator's narration with the [].
-    $ aCustomString = "This is a custom string."
-    "Taro also needed to demonstrated how custom string works. It's like this: [aCustomString]"
-
-    # Using custom strings is more important for inserting names, gender and pronouns.
-    "The player's name is [meName]. Significant other's is [soName]."
-    "The player's gender is [meGender]. Significant other's is [soGender]."
-
-    # For pronouns, I created a function demonstrated below.
-    # To get they/he/she...
-    $ meNoun = getPronoun(meGender, 'Personal')
-    $ soNoun = getPronoun(soGender, 'Personal')
-    "The player's personal pronoun is [meNoun]. Significant other's is [soNoun]."
-
-    # To get their/his/her...
-    $ meNoun = getPronoun(meGender, 'Possessive')
-    $ soNoun = getPronoun(soGender, 'Possessive')
-    "The player's posessive pronoun is [meNoun]. Significant other's is [soNoun]."
-
-    # To get themselves/himself/herself...
-    $ meNoun = getPronoun(meGender, 'Reflexive')
-    $ soNoun = getPronoun(soGender, 'Reflexive')
-    "The player's reflexive pronoun is [meNoun]. Significant other's is [soNoun]."
-
-    # All done
-    return
 
 # Subroutine for conversing on profession
 label convoProfession(p1, p2):
@@ -310,11 +243,59 @@ label convoInterests(p1, p2):
     p1 "Do you like [randInter]?"
 
     if p2 == so:
-        $ randInter = renpy.random.choice(interests)
+        $ randInter = renpy.random.choice(("Yeah, definitely.", "Not so much, but it's cool that you're into it!"))
     else:
-        $ randInter = chooseInterest()
-    p2 "Yeah, definitely."
-    p2 "Not so much, but it's cool that you're into it!"
+        menu:
+            "Definitely.":
+                $ randInter = "Yeah, definitely."
+            "Not so much.":
+                $ randInter = "Not so much, but it's cool that you're into it!"
+    p2 randInter
 
+    # All done
+    return
+
+
+
+# Subroutine for conversing on interests
+label convoHobbies(p1, p2):
+    python:
+        movies = {
+        	"Antiviral":
+                "Oh! I was talking about David. You're thinking of his son, Brandon. Very good movie! The ending creeped me out though.",
+        	"Doki Doki":
+                "*Laughs* That's not a movie! It's okay if you don't know about him. I can show you later.",
+        	"Stalker":
+                "The book, movie, or game? Either way, I'm totally over talking about this one. Too depressing for my tastes.",
+        	"Videodrome":
+                "Good choice! My favorite is eXistenZ. Videodrome made me squirm though. I'm glad I finally have someone to talk about this stuff with!"
+            }
+    p1 "So what kind of stuff are you into?"
+    p2 "*blushes* What do you mean?"
+    p1 "Like movies and games."
+    p2 "Oh! Yeah, I'm into that stuff. I'm a bit of a nerd."
+    p1 "Really! me too!"
+    p2 "*laughs* Yeah? I'm kinda into Cronenberg. I hope that's not weird..."
+    p2 "You know who that is, right?"
+    p1 "Yeah... totally."
+    p2 "Awesome! What's your favorite movie of his?"
+
+    define responseText = "Welp"
+    if p1 == so:
+        $ rand = renpy.random.shuffle(movies.keys())
+        $ responseText = movies[rand]
+        p1 rand
+    else:
+        menu:
+        	"Antiviral":
+                $ responseText = movies["Antiviral"]
+        	"Doki Doki":
+                $ responseText = movies["Doki Doki"]
+        	"Stalker":
+                $ responseText = movies["Stalker"]
+        	"Videodrome":
+                $ responseText = movies["Videodrome"]
+
+    p2 responseText
     # All done
     return

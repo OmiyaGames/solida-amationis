@@ -4,6 +4,7 @@ python early:
     ALL_TOPICS = (
         'Profession',
         'Interests',
+        'Hobbies',
         'Flu Season'
     )
     ALL_ITEMS = (

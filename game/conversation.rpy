@@ -30,8 +30,8 @@ label conversation(soStartsConversation = true):
 
     # Check which topic to speak about, and who starts the conversation
     # Then call the subroutine (listed below) to talk about that topic
-    define p1 = me
-    define p2 = so
+    $ p1 = me
+    $ p2 = so
     if soStartsConversation:
         # Swap figures
         $ p1 = so
@@ -44,7 +44,7 @@ label conversation(soStartsConversation = true):
         call convoHobbies(p1, p2)
     else:
         # Default to talking about the flu season
-        call convoSoFluSeason(p1, p2)
+        call convoFluSeason(p1, p2)
 
     # All done
     return
@@ -101,6 +101,7 @@ label convoProfession(p1, p2):
                 "Art",
                 "Applied Mathematics")
             )
+        )
 
         # Setup variables
         professions = list(PROFESSION)
@@ -150,7 +151,7 @@ label convoProfession(p1, p2):
             p1 "I like it, but I'd like to switch careers at some point."
         else:
             $ randProf, randMajor = randomProfession()
-            p1 "No, I really don't like it at all, so I'm looking at making a career shift to [rand]."
+            p1 "No, I really don't like it at all, so I'm looking at making a career shift to [randProf]."
     else:
         menu:
             me "Well..."
@@ -160,7 +161,7 @@ label convoProfession(p1, p2):
                 p1 "I like it, but I'd like to switch careers at some point."
             "I don't really like it.":
                 $ randProf, randMajor = randomProfession()
-                p1 "No, I really don't like it at all, so I'm looking at making a career shift to [rand]."
+                p1 "No, I really don't like it at all, so I'm looking at making a career shift to [randProf]."
     p2 "Ah, very good."
 
     # All done
@@ -250,7 +251,7 @@ label convoInterests(p1, p2):
                 $ randInter = "Yeah, definitely."
             "Not so much.":
                 $ randInter = "Not so much, but it's cool that you're into it!"
-    p2 randInter
+    $ p2(randInter)
 
     # All done
     return
@@ -261,15 +262,11 @@ label convoInterests(p1, p2):
 label convoHobbies(p1, p2):
     python:
         movies = {
-        	"Antiviral":
-                "Oh! I was talking about David. You're thinking of his son, Brandon. Very good movie! The ending creeped me out though.",
-        	"Doki Doki":
-                "*Laughs* That's not a movie! It's okay if you don't know about him. I can show you later.",
-        	"Stalker":
-                "The book, movie, or game? Either way, I'm totally over talking about this one. Too depressing for my tastes.",
-        	"Videodrome":
-                "Good choice! My favorite is eXistenZ. Videodrome made me squirm though. I'm glad I finally have someone to talk about this stuff with!"
-            }
+            "Antiviral": "Oh! I was talking about David. You're thinking of his son, Brandon. Very good movie! The ending creeped me out though.",
+            "Doki Doki": "*Laughs* That's not a movie! It's okay if you don't know about him. I can show you later.",
+            "Stalker": "The book, movie, or game? Either way, I'm totally over talking about this one. Too depressing for my tastes.",
+            "Videodrome": "Good choice! My favorite is eXistenZ. Videodrome made me squirm though. I'm glad I finally have someone to talk about this stuff with!"
+        }
     p1 "So what kind of stuff are you into?"
     p2 "*blushes* What do you mean?"
     p1 "Like movies and games."
@@ -282,20 +279,21 @@ label convoHobbies(p1, p2):
 
     define responseText = "Welp"
     if p1 == so:
-        $ rand = renpy.random.shuffle(movies.keys())
-        $ responseText = movies[rand]
-        p1 rand
+        python:
+            rand = renpy.random.shuffle(movies.keys())
+            responseText = movies[rand]
+            p1(rand)
     else:
         menu:
-        	"Antiviral":
+            "Antiviral":
                 $ responseText = movies["Antiviral"]
-        	"Doki Doki":
+            "Doki Doki":
                 $ responseText = movies["Doki Doki"]
-        	"Stalker":
+            "Stalker":
                 $ responseText = movies["Stalker"]
-        	"Videodrome":
+            "Videodrome":
                 $ responseText = movies["Videodrome"]
 
-    p2 responseText
+    $ p2(responseText)
     # All done
     return

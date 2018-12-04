@@ -58,8 +58,9 @@ label cafe:
     $ rand = (renpy.random.randint(0, 1) == 1)
     call conversation(rand)
 
-    # TODO: indicate what happens after the conversation
+    # Indicate what happens after the conversation
     "As we finish the conversation, the [cafeStaff] comes in and delivers our meals."
+    $ cafeStaff = cafeStaff.title()
     staff "Bon Appétit!"
 
     "We chew down the food and commented on the delicious flavor of each meal. As we're finishing up the meal, suddenly, [soName] comments."
@@ -67,6 +68,7 @@ label cafe:
     me "That doesn't sound good."
     so "Wait..."
     "[soName] spits out the hard object in question. It looks like...an entire fingernail?"
+    $ cafeStaff = cafeStaff.lower()
     me "Ugh, gross, I'm calling the [cafeStaff] about this."
 
     $ soNoun = getPronoun(soGender, 'Possessive')
@@ -91,7 +93,7 @@ label cafe:
         "Ask [cafeStaff] for help.":
             $ probabilityOfSuccess -= 0.2
 
-    me "Yikes, well, that was a frightning experience."
+    me "Yikes, well, that was a frightening experience."
     so "Yeah, no kidding."
     "As we finished that conversation, the [cafeStaff] handed our check."
     "After we made the payment, we discussed where to go next."

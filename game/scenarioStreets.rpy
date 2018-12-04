@@ -6,7 +6,7 @@ label streets:
     $ scenario = 'streets'
     $ conversationPhase = 0
 
-    # TODO: These display lines of dialogue.
+    # These display lines of dialogue.
     "You walk against the raging wind.  Every few steps, you look at the ground to watch for black ice.  Frost creeps over the discolored concrete.  You can't wait to get to the park."
     me "Lead me the way."
     so "Gladly. It's just straight this way."
@@ -30,10 +30,8 @@ label streets:
     $ rand = renpy.random.randint(0, 3)
     if rand == 0:
         jump streetsLostEyebrow
-    elif rand == 1:
-        jump streetsLostEarLobe
     else:
-        jump streetsLostTooth
+        jump streetsLostEarLobe
 
     # For safety reasons, adding a return to end the game.
     # Should never arrive here, anyway.
@@ -59,7 +57,9 @@ label streetsLostEyebrow:
             me "You can use this hat to cover the brow."
             "I hand over my hat."
             so "Hey, nice going."
-            "[soName] looks over at the closest store window, and adjusts the hat on [soNoun] head."
+
+            $ soNounPersonal = getPronoun(soGender, 'Personal').title()
+            "[soName] looks over at the closest store window, checking [soNoun] reflection.  [soNounPersonal] adjusts the hat on [soNoun] head."
             so "Nice!"
 
         "Use a handkerchief as a makeshift hat." if 'Handkerchief' in inventory:
@@ -68,7 +68,9 @@ label streetsLostEyebrow:
             me "That way, you can cover the brow pretty easily."
             so "Good idea!"
             "I hand over my handkerchief."
-            "[soName] looks over at the closest store window, and adjusts the handkerchief on [soNoun] head."
+
+            $ soNounPersonal = getPronoun(soGender, 'Personal').title()
+            "[soName] looks over at the closest store window, checking [soNoun] reflection.  [soNounPersonal] adjusts the handkerchief on [soNoun] head."
             so "Good enough."
 
         "Apply a band-aid to the missing brow." if 'Band-Aid' in inventory:
@@ -80,7 +82,7 @@ label streetsLostEyebrow:
             "I apply the band-aid to [soNoun] missing brow."
 
             # Skin-touch = improved probability of success...is my internal line of thinking
-            $ probabilityOfSuccess += 0.1
+            $ probabilityOfSuccess += 0.05
             me "Done."
             so "Many thanks!"
 
@@ -88,24 +90,90 @@ label streetsLostEyebrow:
             $ inventory.remove('Bandage')
             me "Uh, well I got this bandage that you can wrap around your head to cover the missing brow."
             so "That...sounds like overkill."
-            $ probabilityOfSuccess -= 0.1
-            me "*Shrug*, maybe you can say you're cosplaying."
+            $ probabilityOfSuccess -= 0.05
+            me "*Shrug*  Just say you had a head injury."
             so "I was more concerned that I was using up so much of your bandage for something so simple."
             me "Oh."
             "We applied the bandage over [soNoun] head anyway."
+
         "Apologize." if 'Hat' not in inventory:
             $ probabilityOfSuccess -= 0.2
             me "Sorry, I have nothing."
             so "Oh, well. I'll live."
     jump endStreets
 
+
+
 label streetsLostEarLobe:
-    # FIXME: this needs dialogue!
+    "It was a small piece of flesh."
+    me "Oh..."
+    "I feel sick and confused."
+    $ rand = renpy.random.choice(('right', 'left'))
+    so "My [rand] ear feels...lighter."
+    "I looked up at [soName]'s face."
+    me "That's stra-{p}It's gone."
+    so "What?"
+    me "Your [rand] earlobe.  It's gone."
+
+    $ soNoun = getPronoun(soGender, 'Possessive')
+    "[soName] puts [soNoun] hand on [soNoun] [rand] ear to confirm."
+    so "Yikes."
+
+    $ soNoun = getPronoun(soGender, 'Personal')
+    "[soNoun] tries to reattach the small flesh to the missing earlobe."
+
+    menu:
+        so "Do you have something to fix this?"
+
+        "Apply a band-aid to reattach the earlobe." if 'Band-Aid' in inventory:
+            $ inventory.remove('Band-Aid')
+            me "Maybe this band-aid might reattach the earlobe.  Temporarily."
+            so "Hmm, worth a shot. Can you help me?"
+
+            $ soNoun = getPronoun(soGender, 'Possessive')
+            "[soName] hands me [soNoun] her earlobe.  I take it, and tape the flesh and ear together."
+            me "I think I got it."
+            "[soName] looks over at the closest store window, and checks [soNoun] reflection."
+
+            # Skin-touch = improved probability of success...is my internal line of thinking
+            $ probabilityOfSuccess += 0.05
+            so "Looks good to me!"
+
+        "Wrap the bandage over the missing brow." if 'Bandage' in inventory:
+            $ inventory.remove('Bandage')
+            me "You can wrap this bandage around your head to keep it protected from outside elements."
+            so "Good call, thank you."
+
+            $ probabilityOfSuccess -= 0.1
+            $ soNoun = getPronoun(soGender, 'Possessive')
+            $ soNounPersonal = getPronoun(soGender, 'Personal')
+            $ soNounPersonalCaps = soNounPersonal.title()
+            "[soNounPersonalCaps] puts the missing earlobe into [soNoun] pocket, then looks over at the closest store window. Using its reflection [soNounPersonal] wraps the bandage over [soNoun] head."
+            so "All wrapped up."
+            me "...Seriously?  A pun?"
+            so "Cut me some slack, how would {i}you{/i} make this situation better?"
+            me "Touché."
+
+        "Hand over the hat." if 'Hat' in inventory:
+            $ inventory.remove('Hat')
+            me "You can use this hat to cover the ear."
+            "I hand over my hat."
+            me "It's not much."
+            so "Still, I'll give it a shot."
+
+            $ probabilityOfSuccess -= 0.05
+            $ soNoun = getPronoun(soGender, 'Possessive')
+            $ soNounPersonal = getPronoun(soGender, 'Personal')
+            "[soName] puts the missing earlobe into [soNoun] pocket, then looks over at the closest store window. Using its reflection [soNounPersonal] adjusts the hat."
+            so "Like nothing has ever happened."
+
+        "Apologize." if 'Hat' not in inventory:
+            $ probabilityOfSuccess -= 0.2
+            me "Sorry, I have nothing."
+            so "Oh, well. I'll live."
     jump endStreets
 
-label streetsLostTooth:
-    # FIXME: this needs dialogue!
-    jump endStreets
+
 
 label endStreets:
     $ soNoun = getPronoun(soGender, 'Possessive')

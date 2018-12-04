@@ -95,6 +95,15 @@ label cafe:
 
         "Ask [cafeStaff] for help.":
             $ probabilityOfSuccess -= 0.2
+            me "Pardon me!"
+            "The [cafeStaff] approached our table."
+            me "Do we have something to cover [soNoun] finger?"
+            "The [cafeStaff] looked at [soName] holding [soNoun] hand."
+            staff "I can bring some napkins."
+            so "That will be great, thank you."
+            "The [cafeStaff] scooted out swiftly, then returned with some napkins."
+            staff "Here you go."
+            so "Thank you."
 
     me "Yikes, well, that was a frightening experience."
     so "Yeah, no kidding."

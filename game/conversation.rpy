@@ -103,6 +103,11 @@ label convoFluSeason(p1, p2):
     python:
         for response in dialog[rand]:
             p1(response)
+    python:
+        if rand == "It's fine.":
+            probabilityOfSuccess -= 0.1
+        elif rand == "It's frigid out there.":
+            probabilityOfSuccess -= 0.2
 
     # All done
     return
@@ -200,12 +205,20 @@ label convoProfession(p1, p2):
             me "Well..."
             "I love it!":
                 p1 "I absolutely love it, and I can't imagine doing anything else."
+                $ rand = 0
             "I like it...":
                 p1 "I like it, but I'd like to switch careers at some point."
+                $ rand = 1
             "I don't really like it.":
                 $ randProf, randMajor = randomProfession()
                 p1 "No, I really don't like it at all, so I'm looking at making a career shift to [randProf]."
+                $ rand = 2
     p2 "Ah, very good."
+    python:
+        if rand == 1:
+            probabilityOfSuccess -= 0.1
+        elif rand > 1:
+            probabilityOfSuccess -= 0.2
 
     # All done
     return
@@ -295,6 +308,9 @@ label convoInterests(p1, p2):
             "Not so much.":
                 $ randInter = "Not so much, but it's cool that you're into it!"
     $ p2(randInter)
+    python:
+        if randInter == "Not so much, but it's cool that you're into it!":
+            probabilityOfSuccess -= 0.1
 
     # All done
     return

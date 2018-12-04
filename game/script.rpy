@@ -136,7 +136,7 @@ define soName = 'Significant Other'
 define soGender = PRONOUNS[2]
 
 # TODO: Add some more conversation topics when I have the time
-define DEFAULT_PROBABILITY_OF_SUCCESS = 0.9
+define DEFAULT_PROBABILITY_OF_SUCCESS = 0.85
 define conversationTopics = list(ALL_TOPICS)
 define probabilityOfSuccess = DEFAULT_PROBABILITY_OF_SUCCESS
 define inventory = []

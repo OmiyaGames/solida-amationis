@@ -56,10 +56,52 @@ label conversation(soStartsConversation = true):
 
 # Subroutine for conversing on the flu season, starting with the Player
 label convoFluSeason(p1, p2):
-    p1 "I've been seeing a lot coughs from people around me, lately."
-    p2 "Well, of course, it's the dreaded flu season."
-    "And the narrator described talked about some mysterious disease people were dying right-and-left from."
-    "OoOo, forshadowing!"
+    python:
+        dialog = {
+            "Yes": ("Yeah, have you heard about the severe coughs that's been killing people lately?", "I get scared thinking about it."),
+            "No":  ("Not at all.")
+        }
+    p1 "I hope the flu hasn't gotten to you."
+    p2 "'Tis the season, isn't it?  There are a lot of people with the coughs lately."
+    p1 "I hope it doesn't bother you too much."
+
+    define rand = "Welp"
+    if p2 == so:
+        python:
+            rand = renpy.random.shuffle(dialog.keys())
+            for response in dialog[rand]:
+                p2(response)
+    else:
+        menu:
+            "Yes":
+                python:
+                    for response in dialog["Yes"]:
+                        p2(response)
+            "No":
+                python:
+                    for response in dialog["No"]:
+                        p2(response)
+
+    python:
+        dialog = {
+            "Yeah, where's the snow?": ("I know, right?  Like, I feel colder without it than with!"),
+            "Yeah, it's frigid out there.": ("I'm concerned I haven't suited up properly for it."),
+            "I think it's fine.": ("Aw, you're lucky.  I wished I wasn't so bothered by the cold.")
+        }
+    p1 "Still, the weather has been crazy, hasn't it?"
+    if p2 == so:
+        python:
+            rand = renpy.random.shuffle(dialog.keys())
+    else:
+        menu:
+            "Yeah, where's the snow?":
+                $ rand = "Yeah, where's the snow?"
+            "It's frigid out there.":
+                $ rand = "Yeah, it's frigid out there."
+            "It's fine.":
+                $ rand = "I think it's fine."
+    for response in dialog[rand]:
+        p1(response)
 
     # All done
     return
@@ -262,38 +304,42 @@ label convoInterests(p1, p2):
 label convoHobbies(p1, p2):
     python:
         movies = {
-            "Antiviral": "Oh! I was talking about David. You're thinking of his son, Brandon. Very good movie! The ending creeped me out though.",
-            "Doki Doki": "*Laughs* That's not a movie! It's okay if you don't know about him. I can show you later.",
-            "Stalker": "The book, movie, or game? Either way, I'm totally over talking about this one. Too depressing for my tastes.",
-            "Videodrome": "Good choice! My favorite is eXistenZ. Videodrome made me squirm though. I'm glad I finally have someone to talk about this stuff with!"
+            "Antiviral": ("Oh!  I was talking about David.  You're thinking of his son, Brandon.", "Very good movie!  The ending creeped me out though."),
+            "Doki Doki": ("*Laughs*  That's not a movie!", "It's okay if you don't know about him. I can show you later."),
+            "Stalker": ("The book, movie, or game?", "Either way, I'm totally over talking about this one.  Too depressing for my tastes."),
+            "Videodrome": ("Good choice!  My favorite is eXistenZ.", "Videodrome made me squirm though.  I'm glad I finally have someone to talk about this stuff with!")
         }
     p1 "So what kind of stuff are you into?"
     p2 "*blushes* What do you mean?"
     p1 "Like movies and games."
-    p2 "Oh! Yeah, I'm into that stuff. I'm a bit of a nerd."
-    p1 "Really! me too!"
-    p2 "*laughs* Yeah? I'm kinda into Cronenberg. I hope that's not weird..."
+    p2 "Oh!  Yeah, I'm into that stuff.  I'm a bit of a nerd."
+    p1 "Really!  Me too!"
+    p2 "*laughs*  Yeah?  I'm kinda into Cronenberg.  I hope that's not weird..."
     p2 "You know who that is, right?"
     p1 "Yeah... totally."
     p2 "Awesome! What's your favorite movie of his?"
 
-    define responseText = "Welp"
+    define rand = "Welp"
     if p1 == so:
         python:
             rand = renpy.random.shuffle(movies.keys())
-            responseText = movies[rand]
             p1(rand)
     else:
         menu:
             "Antiviral":
-                $ responseText = movies["Antiviral"]
+                $ rand = "Antiviral"
             "Doki Doki":
-                $ responseText = movies["Doki Doki"]
+                $ rand = "Doki Doki"
             "Stalker":
-                $ responseText = movies["Stalker"]
+                $ rand = "Stalker"
             "Videodrome":
-                $ responseText = movies["Videodrome"]
-
-    $ p2(responseText)
+                $ rand = "Videodrome"
+    python:
+        if rand == "Doki Doki":
+            probabilityOfSuccess -= 0.2
+        elif rand == "Stalker":
+            probabilityOfSuccess -= 0.1
+        for response in movies[rand]:
+            p2(response)
     # All done
     return

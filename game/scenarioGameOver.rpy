@@ -2,7 +2,6 @@
 label gameover:
 
     # Switch to scene 1
-    scene bg gameover
     $ scenario = 'gameover'
     $ conversationPhase = 0
 

@@ -21,6 +21,10 @@ label streets:
     "It appeared [soName]'s coughs were getting worse."
     me "Are you alright?"
     so "Yeah, I think so-"
+
+    # Change music
+    stop music fadeout 1.0
+    play music "Horror 2.mp3"
     "[soName] suddenly jutted forward, as if to throw up."
     me "[soName]!!"
     $ soNoun = getPronoun(soGender, 'Possessive')
@@ -176,6 +180,9 @@ label streetsLostEarLobe:
 
 
 label endStreets:
+    stop music fadeout 1.0
+    play music "Cafe.mp3"
+
     $ soNoun = getPronoun(soGender, 'Possessive')
     "We walked a little farther until [soName] lifted [soNoun] hand."
     so "There's the park."

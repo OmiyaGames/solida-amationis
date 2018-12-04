@@ -6,6 +6,8 @@ label gameover:
     $ scenario = 'gameover'
     $ conversationPhase = 0
 
+    stop music fadeout 1.0
+
     # These display lines of dialogue.
     $ soNoun = getPronoun(soGender, 'Possessive')
     "Suddenly, [soName]'s body lurches forward, [soNoun] face turning towards the ground."

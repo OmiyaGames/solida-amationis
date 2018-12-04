@@ -10,6 +10,9 @@ label hospital:
     define doc = Character('Doctor', color='#ffffff')
     doc "Solida amationis."
     me "Come again?"
+
+    stop music fadeout 1.0
+    play music "Hospital.mp3"
     "My focus suddenly returned back to the stale room, with the white curtain covering the sides."
     so "It's what I'm suffering from, [meName]."
     me "Oh, right."

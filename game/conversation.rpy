@@ -59,7 +59,7 @@ label convoFluSeason(p1, p2):
     python:
         dialog = {
             "Yes": ("Yeah, have you heard about the severe coughs that's been killing people lately?", "I get scared thinking about it."),
-            "No":  ("Not at all.")
+            "No":  ("Not at all.", "The cold has never bothered me, anyway.")
         }
     p1 "I hope the flu hasn't gotten to you."
     p2 "'Tis the season, isn't it?  There are a lot of people with the coughs lately."
@@ -68,7 +68,7 @@ label convoFluSeason(p1, p2):
     define rand = "Welp"
     if p2 == so:
         python:
-            rand = renpy.random.shuffle(dialog.keys())
+            rand = renpy.random.choices(dialog.keys())
             for response in dialog[rand]:
                 p2(response)
     else:
@@ -86,12 +86,12 @@ label convoFluSeason(p1, p2):
         dialog = {
             "Yeah, where's the snow?": ("I know, right?  Like, I feel colder without it than with!"),
             "Yeah, it's frigid out there.": ("I'm concerned I haven't suited up properly for it."),
-            "I think it's fine.": ("Aw, you're lucky.  I wished I wasn't so bothered by the cold.")
+            "I think it's fine.": ("Aw, you're lucky.  I wished I had your genes.")
         }
     p1 "Still, the weather has been crazy, hasn't it?"
     if p2 == so:
         python:
-            rand = renpy.random.shuffle(dialog.keys())
+            rand = renpy.random.choices(dialog.keys())
     else:
         menu:
             "Yeah, where's the snow?":
@@ -100,8 +100,9 @@ label convoFluSeason(p1, p2):
                 $ rand = "Yeah, it's frigid out there."
             "It's fine.":
                 $ rand = "I think it's fine."
-    for response in dialog[rand]:
-        p1(response)
+    python:
+        for response in dialog[rand]:
+            p1(response)
 
     # All done
     return
@@ -322,7 +323,7 @@ label convoHobbies(p1, p2):
     define rand = "Welp"
     if p1 == so:
         python:
-            rand = renpy.random.shuffle(movies.keys())
+            rand = renpy.random.choices(movies.keys())
             p1(rand)
     else:
         menu:

@@ -6,6 +6,9 @@ label cafe:
 
     # Switch to scene 1
     scene bg cafe
+    stop music fadeout 1.0
+    play music "Cafe.mp3"
+
     $ scenario = 'cafe'
     $ conversationPhase = 0
 

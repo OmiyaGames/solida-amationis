@@ -24,6 +24,9 @@ label park:
     "After a few minutes of conversation, you notice that [soName] is shivering."
     me "Is everything alright?"
     so "*COUGH*"
+
+    stop music fadeout 1.0
+    play music "Horror 2.mp3"
     "I jumped. This sounded far more severe than before."
     me "[soName]!!"
     "I quickly got up and rushed in front of [soName]."
@@ -94,6 +97,8 @@ label endPark:
     me "Y-yes, this is [meName]. W-we need treatment for [soName] who just lost [soNoun] [lostBodyPart]!"
     "In my panic, I stuttered where we were located, and answered questions as best I could."
     "Eventually, the receiver assured us they'll be coming shortly."
+    stop music fadeout 1.0
+    play music "Cafe.mp3"
 
     if 'Smartphone' in inventory:
         "I sit next to [soName]."

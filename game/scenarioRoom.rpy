@@ -34,6 +34,7 @@ label room:
     # add a file (named either 'bg room.png' or 'bg room.jpg') to the
     # images directory to show it.
     scene bg room
+    play music "Horror 1.mp3"
 
     # Actually play the item collecting minigame here
     me "Oh, egads, I'm late for my date!"

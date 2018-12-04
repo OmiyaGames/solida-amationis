@@ -1,6 +1,7 @@
 ﻿# The script of the game goes in this file.
 
 python early:
+    config.searchpath.extend(['game//music'])
     ALL_TOPICS = (
         'Profession',
         'Interests',
@@ -148,6 +149,7 @@ label start:
     # add a file (named either 'bg room.png' or 'bg room.jpg') to the
     # images directory to show it.
     scene bg setup
+    stop music
 
     python:
         # Reset all the variables

@@ -6,13 +6,25 @@ label gameover:
     $ scenario = 'gameover'
     $ conversationPhase = 0
 
-    # TODO: These display lines of dialogue.
-    so "Placeholder text"
-    "And just like that, I watched in horror as the date fall apart into pieces."
+    # These display lines of dialogue.
+    $ soNoun = getPronoun(soGender, 'Possessive')
+    "Suddenly, [soName]'s body lurches forward, [soNoun] face turning towards the ground."
+    so "Hurg-"
+    "I jolt."
+    me "[soName]!"
+    "[soName] struggles to speak."
+    so "[meName]...{w=0.5}I...{w=0.5}feel...{w=0.5}"
+    "[soName]'s body starts to fall."
+    me "[soName]!!"
+    $ soNoun = getPronoun(soGender, 'Personal')
+    "I grab [soNoun]. [soNoun] limps."
+    me "[soName]!!!"
+    "I gasped in horror. Dangling out of [soNoun] mouth was a set of thick blood veins."
+    "Attached to the end was an exposed heart, beating weakly."
     me "No!"
+    "I can't let it end like this."
     me "No, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no-"
 
     # This ends the game.
-    "Love is over..."
-    me "If only I can start over!"
+    "...{p}...{p}...{p}{w=1}Love is over..."
     jump start

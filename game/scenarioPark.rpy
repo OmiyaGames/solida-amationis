@@ -18,7 +18,7 @@ label park:
 
     # Have a conversation
     $ rand = (renpy.random.randint(0, 1) == 1)
-    call conversation(rand)
+    call conversation(rand) from _call_conversation_1
 
     # Start the body-loss section
     "After a few minutes of conversation, you notice that [soName] is shivering."

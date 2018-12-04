@@ -37,14 +37,14 @@ label conversation(soStartsConversation = true):
         $ p1 = so
         $ p2 = me
     if topic == 'Profession':
-        call convoProfession(p1, p2)
+        call convoProfession(p1, p2) from _call_convoProfession
     elif topic == 'Interests':
-        call convoInterests(p1, p2)
+        call convoInterests(p1, p2) from _call_convoInterests
     elif topic == 'Hobbies':
-        call convoHobbies(p1, p2)
+        call convoHobbies(p1, p2) from _call_convoHobbies
     else:
         # Default to talking about the flu season
-        call convoFluSeason(p1, p2)
+        call convoFluSeason(p1, p2) from _call_convoFluSeason
 
     # All done
     return
@@ -68,7 +68,7 @@ label convoFluSeason(p1, p2):
     define rand = "Welp"
     if p2 == so:
         python:
-            rand = renpy.random.choices(dialog.keys())
+            rand = renpy.random.choice(dialog.keys())
             for response in dialog[rand]:
                 p2(response)
     else:
@@ -91,7 +91,7 @@ label convoFluSeason(p1, p2):
     p1 "Still, the weather has been crazy, hasn't it?"
     if p2 == so:
         python:
-            rand = renpy.random.choices(dialog.keys())
+            rand = renpy.random.choice(dialog.keys())
     else:
         menu:
             "Yeah, where's the snow?":
@@ -323,7 +323,7 @@ label convoHobbies(p1, p2):
     define rand = "Welp"
     if p1 == so:
         python:
-            rand = renpy.random.choices(movies.keys())
+            rand = renpy.random.choice(movies.keys())
             p1(rand)
     else:
         menu:

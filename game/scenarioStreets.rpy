@@ -14,7 +14,7 @@ label streets:
 
     # Have a conversation
     $ rand = (renpy.random.randint(0, 1) == 1)
-    call conversation(rand)
+    call conversation(rand) from _call_conversation
 
     # Start the body-loss section
     so "*Cough, cough*"

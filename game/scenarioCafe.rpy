@@ -59,7 +59,7 @@ label cafe:
 
     # Have a conversation
     $ rand = (renpy.random.randint(0, 1) == 1)
-    call conversation(rand)
+    call conversation(rand) from _call_conversation_2
 
     # Indicate what happens after the conversation
     "As we finish the conversation, the [cafeStaff] comes in and delivers our meals."

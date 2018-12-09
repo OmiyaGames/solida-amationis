@@ -84,9 +84,9 @@ label convoFluSeason(p1, p2):
 
     python:
         dialog = {
-            "Yeah, where's the snow?": ("I know, right?  Like, I feel colder without it than with!"),
-            "Yeah, it's frigid out there.": ("I'm concerned I haven't suited up properly for it."),
-            "I think it's fine.": ("Aw, you're lucky.  I wished I had your genes.")
+            "Yeah, where's the snow?": ("I know, right?",  "Like, I feel colder without it than with!"),
+            "Yeah, it's frigid out there.": ("I'm concerned I haven't suited up properly for it.",  "Like, I could totally use a hat right now."),
+            "I think it's fine.": ("Aw, you're lucky.",  "I wished I had your genes.")
         }
     p1 "Still, the weather has been crazy, hasn't it?"
     if p2 == so:

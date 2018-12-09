@@ -2,7 +2,7 @@
 label streets:
 
     # Switch to scene 1
-    scene bg streets A
+    scene bg streets1
     $ scenario = 'streets'
     $ conversationPhase = 0
 

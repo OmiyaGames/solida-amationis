@@ -57,7 +57,7 @@ label hospital:
     "I flash [soName] a smile before I leave."
 
     # Switch to streets, normal
-    scene bg streets A
+    scene bg streets1
     "As I walk back home, I take a brief look at brochure.  The street lights are only bright enough to make a few sentences legible."
     me "\"Do you have Solida amationis?  Symptoms include:\""
     "Looks like any regular medical brochures."
@@ -71,7 +71,7 @@ label hospital:
     "I{w=0.5} open{w=0.5} my{w=0.5} hand."
 
     # Switch to streets, cut in half
-    scene bg streets B
+    scene bg streets2
     me "No..."
     "It's an eyeball."
     "{i}My eyeball.{/i}"
@@ -86,6 +86,7 @@ label hospital:
     "Images cont.:{p}\"White Hospital Beds\" by Pixabay"
     "Images cont.:{p}Everything else by Taro Omiya"
     "Support us on Patreon!{p}Developer: {a=https://www.patreon.com/OmiyaGames}Omiya Games{/a}{p}Music:{a=https://www.patreon.com/geekmusica}Geek Musica{/a}"
+    "Patrons that makes this game possible:{p}Adam R. Vierra"
     "Special Thanks:{p}Tech Valley Game Space{p}Ludum Dare 43{p}And you!"
 
     # This ends the game.
